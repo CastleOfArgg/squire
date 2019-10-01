@@ -1,0 +1,512 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://person/person.gd" type="Script" id=1]
+[ext_resource path="res://person/person_controller.gd" type="Script" id=2]
+[ext_resource path="res://person/body_part.gd" type="Script" id=3]
+[ext_resource path="res://blood_drop.png" type="Texture" id=4]
+[ext_resource path="res://person/body.shader" type="Shader" id=5]
+[ext_resource path="res://rect.png" type="Texture" id=6]
+[ext_resource path="res://weapons/sword.gd" type="Script" id=7]
+[ext_resource path="res://weapons/sword.shader" type="Shader" id=8]
+[ext_resource path="res://Player_Camera.gd" type="Script" id=9]
+[ext_resource path="res://person/Kick.tres" type="Animation" id=10]
+[ext_resource path="res://person/Spike.tres" type="Animation" id=11]
+[ext_resource path="res://person/stumble.tres" type="Animation" id=12]
+[ext_resource path="res://person/swing_up.tres" type="Animation" id=13]
+[ext_resource path="res://person/sword_death_stab.tres" type="Animation" id=14]
+[ext_resource path="res://person/sword_idle.tres" type="Animation" id=15]
+[ext_resource path="res://person/sword_walk.tres" type="Animation" id=16]
+[ext_resource path="res://person/walk.tres" type="Animation" id=17]
+[ext_resource path="res://zombie_walk.tres" type="Animation" id=18]
+[ext_resource path="res://person/PersonAnim.gd" type="Script" id=19]
+[ext_resource path="res://person/sword_aim.gd" type="Script" id=20]
+[ext_resource path="res://person/kick_area.gd" type="Script" id=21]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31.2811, 81.8224 )
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.431373, 0.431373, 0.431373, 1, 0.992157, 0.6, 0.6, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 42.9501, 29.9661 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 77.0918, 12.6217 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 8 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 221.106, 16.5272 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 77.5504, 186 )
+
+[sub_resource type="Animation" id=9]
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("body/arm_r:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.6, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 150.934, 150.934, 27.7318, 27.7318, 150.934, 150.934 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body/arm_l:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.6, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 150.934, 150.934, 27.7318, 27.7318, 150.934, 150.934 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body/arm_r/sword:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.6, 0.8, 0.9, 0.996792 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 26.7089, -81.5084, -211.6, -85.9255, -85.9255, -211.6, -81.5084, 26.7089 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("body/arm_r/sword")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.15, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_start"
+}, {
+"args": [  ],
+"method": "attacking_end"
+} ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("body/head:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -1.60426, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body/arm_r:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 90.0, 90.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body/arm_l:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 90.0, 90.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("body/leg_r:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("body/leg_l:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("body:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 6, -225.892 ), Vector2( 6, -225.892 ) ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "Stab"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Kick"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Spike"
+
+[sub_resource type="AnimationNodeOneShot" id=14]
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "sword_idle"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "walk"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "sword_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=21]
+blend_point_0/node = SubResource( 15 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 16 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 17 )
+blend_point_2/pos = Vector2( 0.5, 0 )
+blend_point_3/node = SubResource( 18 )
+blend_point_3/pos = Vector2( 0.5, 1 )
+blend_point_4/node = SubResource( 19 )
+blend_point_4/pos = Vector2( 0, 0.2 )
+blend_point_5/node = SubResource( 20 )
+blend_point_5/pos = Vector2( 0.1, 0 )
+
+[sub_resource type="AnimationNodeOneShot" id=22]
+
+[sub_resource type="AnimationNodeOneShot" id=23]
+
+[sub_resource type="AnimationNodeOneShot" id=24]
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "swing_up"
+
+[sub_resource type="AnimationNodeBlendTree" id=26]
+graph_offset = Vector2( 327.21, 47 )
+nodes/Animation/node = SubResource( 13 )
+nodes/Animation/position = Vector2( 140, 240 )
+"nodes/Animation 2/node" = SubResource( 11 )
+"nodes/Animation 2/position" = Vector2( 560, 240 )
+"nodes/Animation 3/node" = SubResource( 12 )
+"nodes/Animation 3/position" = Vector2( 980, 240 )
+nodes/Kick/node = SubResource( 14 )
+nodes/Kick/position = Vector2( 1180, 120 )
+nodes/Motion/node = SubResource( 21 )
+nodes/Motion/position = Vector2( -480, 80 )
+nodes/Spike/node = SubResource( 22 )
+nodes/Spike/position = Vector2( 340, 140 )
+nodes/Stab/node = SubResource( 23 )
+nodes/Stab/position = Vector2( 740, 140 )
+nodes/Swing_Up/node = SubResource( 24 )
+nodes/Swing_Up/position = Vector2( -80, 180 )
+nodes/anim/node = SubResource( 25 )
+nodes/anim/position = Vector2( -260, 260 )
+nodes/output/position = Vector2( 1480, 120 )
+node_connections = [ "output", 0, "Kick", "Spike", 0, "Swing_Up", "Spike", 1, "Animation", "Stab", 0, "Spike", "Stab", 1, "Animation 2", "Kick", 0, "Stab", "Kick", 1, "Animation 3", "Swing_Up", 0, "Motion", "Swing_Up", 1, "anim" ]
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "stumble"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "sword_death_stab"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachine" id=32]
+states/Motion/node = SubResource( 26 )
+states/Motion/position = Vector2( 285, 162 )
+states/Stumble/node = SubResource( 27 )
+states/Stumble/position = Vector2( 547, 162 )
+states/sword_death_stab/node = SubResource( 28 )
+states/sword_death_stab/position = Vector2( 305, 315 )
+transitions = [ "Motion", "Stumble", SubResource( 29 ), "Stumble", "Motion", SubResource( 30 ), "Motion", "sword_death_stab", SubResource( 31 ) ]
+start_node = "Motion"
+end_node = "sword_death_stab"
+graph_offset = Vector2( -349, 25 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=33]
+
+[sub_resource type="RectangleShape2D" id=34]
+extents = Vector2( 37.0545, 140.533 )
+
+[node name="Person" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="kinematic_body" type="KinematicBody2D" parent="."]
+position = Vector2( -103.493, 0 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 2 )
+body_parts_paths = [ NodePath("body/Area2D"), NodePath("body/head/Area2D"), NodePath("body/arm_r/Area2D"), NodePath("body/arm_l/Area2D"), NodePath("body/leg_r/Area2D"), NodePath("body/leg_l/Area2D") ]
+
+[node name="body" type="Node2D" parent="kinematic_body"]
+position = Vector2( 6, -225.892 )
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body"]
+script = ExtResource( 3 )
+parent_path = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/Area2D"]
+position = Vector2( 0.429105, -5.55864 )
+shape = SubResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="kinematic_body/body/Area2D"]
+rotation = 3.14159
+scale = Vector2( 1.01538, 0.730159 )
+emitting = false
+amount = 50
+lifetime = 2.0
+explosiveness = 0.9
+randomness = 0.1
+texture = ExtResource( 4 )
+gravity = Vector2( 0, -100 )
+initial_velocity = 600.0
+initial_velocity_random = 0.1
+angular_velocity = 139.35
+angular_velocity_random = 1.0
+linear_accel = -15.05
+scale_amount = 0.3
+color_ramp = SubResource( 2 )
+
+[node name="body" type="Sprite" parent="kinematic_body/body"]
+material = SubResource( 3 )
+rotation = -1.5708
+scale = Vector2( 0.730159, 1.01538 )
+texture = ExtResource( 6 )
+
+[node name="head" type="Node2D" parent="kinematic_body/body"]
+editor/display_folded = true
+position = Vector2( -21, -104 )
+rotation = -0.0116127
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="head" type="Sprite" parent="kinematic_body/body/head"]
+rotation = -1.5708
+scale = Vector2( 0.243388, 1.42586 )
+texture = ExtResource( 6 )
+offset = Vector2( 51.06, 19.8 )
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body/head"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/head/Area2D"]
+position = Vector2( 28.2747, -12.5489 )
+shape = SubResource( 4 )
+
+[node name="arm_r" type="Node2D" parent="kinematic_body/body"]
+position = Vector2( 9, -39 )
+rotation = 1.27245
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="arm_r" type="Sprite" parent="kinematic_body/body/arm_r"]
+rotation = 2.90321e-015
+scale = Vector2( 0.61186, 0.4375 )
+texture = ExtResource( 6 )
+offset = Vector2( 106.4, 0 )
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body/arm_r"]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/arm_r/Area2D"]
+position = Vector2( 63.3948, 0.182495 )
+shape = SubResource( 5 )
+
+[node name="sword" type="Node2D" parent="kinematic_body/body/arm_r"]
+position = Vector2( 130.531, -1.73318 )
+rotation = -2.70607
+scale = Vector2( 0.812941, 0.3914 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_bone_": true
+}
+parent_path = NodePath("../../..")
+
+[node name="sword" type="Sprite" parent="kinematic_body/body/arm_r/sword"]
+material = SubResource( 6 )
+rotation = 1.30024
+scale = Vector2( 2.19791, 0.27624 )
+texture = ExtResource( 6 )
+offset = Vector2( 91.19, 0 )
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body/arm_r/sword"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/arm_r/sword/Area2D"]
+position = Vector2( 65.7583, 239.086 )
+rotation = 1.27409
+shape = SubResource( 7 )
+
+[node name="arm_l" type="Node2D" parent="kinematic_body/body"]
+editor/display_folded = true
+position = Vector2( -1, -50 )
+rotation = 1.27245
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="arm_l" type="Sprite" parent="kinematic_body/body/arm_l"]
+rotation = 2.90321e-015
+scale = Vector2( 0.61186, 0.4375 )
+texture = ExtResource( 6 )
+offset = Vector2( 106.4, 0 )
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body/arm_l"]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/arm_l/Area2D"]
+position = Vector2( 63.3948, 0.182495 )
+shape = SubResource( 5 )
+
+[node name="leg_r" type="Node2D" parent="kinematic_body/body"]
+editor/display_folded = true
+position = Vector2( -6, 83 )
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="leg_r" type="Sprite" parent="kinematic_body/body/leg_r"]
+rotation = 1.5708
+scale = Vector2( 0.61186, 0.4375 )
+texture = ExtResource( 6 )
+offset = Vector2( 106.4, 0 )
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body/leg_r"]
+visible = false
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/leg_r/Area2D"]
+position = Vector2( 63.3948, 0.182495 )
+shape = SubResource( 5 )
+
+[node name="leg_l" type="Node2D" parent="kinematic_body/body"]
+editor/display_folded = true
+position = Vector2( 7, 76 )
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="leg_l" type="Sprite" parent="kinematic_body/body/leg_l"]
+rotation = 1.5708
+scale = Vector2( 0.61186, 0.4375 )
+texture = ExtResource( 6 )
+offset = Vector2( 106.4, 0 )
+
+[node name="Area2D" type="Area2D" parent="kinematic_body/body/leg_l"]
+visible = false
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/body/leg_l/Area2D"]
+position = Vector2( 63.3948, 0.182495 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body"]
+position = Vector2( 7, -189 )
+shape = SubResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="kinematic_body"]
+position = Vector2( 299.841, -220.193 )
+script = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="kinematic_body"]
+anims/Kick = ExtResource( 10 )
+anims/Spike = ExtResource( 11 )
+anims/Stab = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/stumble = ExtResource( 12 )
+anims/swing_up = ExtResource( 13 )
+anims/sword_death_stab = ExtResource( 14 )
+anims/sword_idle = ExtResource( 15 )
+anims/sword_walk = ExtResource( 16 )
+anims/walk = ExtResource( 17 )
+anims/zombie_walk = ExtResource( 18 )
+
+[node name="AnimationTree" type="AnimationTree" parent="kinematic_body"]
+tree_root = SubResource( 32 )
+anim_player = NodePath("../AnimationPlayer")
+root_motion_track = NodePath(".:position")
+parameters/playback = SubResource( 33 )
+parameters/Motion/Kick/active = false
+parameters/Motion/Motion/blend_position = Vector2( 0, 0 )
+parameters/Motion/Spike/active = false
+parameters/Motion/Stab/active = false
+parameters/Motion/Swing_Up/active = false
+script = ExtResource( 19 )
+
+[node name="aimmer" type="Node2D" parent="kinematic_body"]
+position = Vector2( -126.335, -190.201 )
+script = ExtResource( 20 )
+COLOR = Color( 0.808594, 0.372316, 0.11055, 1 )
+
+[node name="kick_area" type="Area2D" parent="kinematic_body"]
+editor/display_folded = true
+visible = false
+position = Vector2( 131.499, -139.968 )
+script = ExtResource( 21 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kinematic_body/kick_area"]
+shape = SubResource( 34 )
+[connection signal="area_entered" from="kinematic_body/body/arm_r/sword/Area2D" to="kinematic_body/body/arm_r/sword" method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="kinematic_body/kick_area" to="kinematic_body/kick_area" method="_on_kick_area_body_entered"]
+[connection signal="body_exited" from="kinematic_body/kick_area" to="kinematic_body/kick_area" method="_on_kick_area_body_exited"]
