@@ -66,6 +66,11 @@ change_weapon_down={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="people"
+2d_physics/layer_2="ground"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

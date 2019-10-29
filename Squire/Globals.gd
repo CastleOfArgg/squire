@@ -5,6 +5,10 @@ var SWORD_STAB := 0
 var SWORD_SPIKE := 1
 var SWORD_SWING := 2
 
+#global vars
+var transitionCamera : Camera2D
+var player : KinematicBody2D
+
 #internal vars
 var debugging := true
 

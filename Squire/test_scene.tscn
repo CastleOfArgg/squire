@@ -1,17 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://rect.png" type="Texture" id=1]
 [ext_resource path="res://person/person.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://cameraTrigger.gd" type="Script" id=4]
+[ext_resource path="res://fog.shader" type="Shader" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=6]
+[ext_resource path="res://fog.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 124, 30 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 70.009, 233.219 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/color = Vector3( 0.1, 0.1, 0.95 )
+shader_param/OCTAVES = 4
 
 [node name="Node2D" type="Node2D"]
 
 [node name="floor" type="StaticBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 464, 544 )
-scale = Vector2( 4.4, 1.92 )
+scale = Vector2( 9.36, 1.92 )
 collision_layer = 3
 collision_mask = 3
 
@@ -24,9 +37,43 @@ position = Vector2( 9, 7 )
 shape = SubResource( 1 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 138.034, 485.117 )
+position = Vector2( -442.234, 485.117 )
 player_controlled = true
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position = Vector2( 103.389, -206.777 )
+current = true
 
 [node name="person" parent="." instance=ExtResource( 2 )]
 position = Vector2( 815.754, 479.958 )
 scale = Vector2( -0.8363, 1 )
+
+[node name="transitionCamera" type="Camera2D" parent="."]
+position = Vector2( 136.742, -440.21 )
+rotating = true
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+script = ExtResource( 3 )
+
+[node name="battleCamera" type="Camera2D" parent="."]
+position = Vector2( 524.697, 284.319 )
+
+[node name="cameraTrigger" type="Area2D" parent="."]
+position = Vector2( 104.681, 254.594 )
+script = ExtResource( 4 )
+speed = 5.0
+to = NodePath("../battleCamera")
+from = NodePath("../player/Camera2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cameraTrigger"]
+shape = SubResource( 2 )
+
+[node name="icon" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( 364.349, 283.961 )
+scale = Vector2( 66.6435, 49.0887 )
+texture = ExtResource( 6 )
+script = ExtResource( 7 )
+[connection signal="body_entered" from="cameraTrigger" to="cameraTrigger" method="_on_cameraTrigger_body_entered"]
