@@ -13,5 +13,4 @@ func _ready():
 
 func _on_cameraTrigger_body_entered(body):
 	if on and body.player_controlled:
-		Globals.transitionCamera.start(to_camera, from_camera, speed)
 		on = false

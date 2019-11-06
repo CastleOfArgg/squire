@@ -21,6 +21,6 @@ func _process(delta):
 		stumble_time -= delta
 		if(stumble_time <= 0):
 			is_stumbling = false
-			print("A")
-		print(stumble_velocity)
+			#print("A")
+		#print(stumble_velocity)
 		stumble_velocity = body.move_and_slide(stumble_velocity)
